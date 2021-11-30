@@ -1,4 +1,4 @@
-package com.poseidon.api.domain;
+package com.poseidon.api.demo.domain;
 
 
 import javax.persistence.*;

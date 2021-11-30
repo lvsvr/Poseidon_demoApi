@@ -1,7 +1,7 @@
-package com.poseidon.api.services;
+package com.poseidon.api.demo.services;
 
-import com.poseidon.api.domain.BidList;
-import com.poseidon.api.repositories.BidListRepository;
+import com.poseidon.api.demo.domain.BidList;
+import com.poseidon.api.demo.repositories.BidListRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

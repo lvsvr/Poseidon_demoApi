@@ -12,7 +12,7 @@
 //
 //@Service
 //public class DbInitService implements CommandLineRunner {
-//    private static final Logger logger = LogManager.getLogger(DemoApplication.class);
+//    private static final Logger logger = LogManager.getLogger(com.poseidon.api.demo.DemoApplication.class);
 //    private UserRepository userRepository;
 //    private BidListRepository bidListRepository;
 //

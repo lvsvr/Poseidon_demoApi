@@ -1,6 +1,6 @@
-package com.poseidon.api.repositories;
+package com.poseidon.api.demo.repositories;
 
-import com.poseidon.api.domain.User;
+import com.poseidon.api.demo.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

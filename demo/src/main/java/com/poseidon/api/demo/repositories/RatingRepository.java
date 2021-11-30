@@ -1,6 +1,6 @@
-package com.poseidon.api.repositories;
+package com.poseidon.api.demo.repositories;
 
-import com.poseidon.api.domain.Rating;
+import com.poseidon.api.demo.domain.Rating;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RatingRepository extends JpaRepository<Rating, Integer> {

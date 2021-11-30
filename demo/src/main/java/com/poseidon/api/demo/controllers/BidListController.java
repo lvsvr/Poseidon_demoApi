@@ -1,9 +1,7 @@
-package com.poseidon.api.controllers;
+package com.poseidon.api.demo.controllers;
 
-import com.poseidon.api.demo.DemoApplication;
-import com.poseidon.api.domain.BidList;
-import com.poseidon.api.services.BidListService;
-import org.apache.logging.log4j.LogManager;
+import com.poseidon.api.demo.domain.BidList;
+import com.poseidon.api.demo.services.BidListService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 @Controller
 public class BidListController {
-    private static final Logger logger = (Logger) LogManager.getLogger(DemoApplication.class);
-    // TODO: Inject Bid service
+        // TODO: Inject Bid service
     private BidListService bidListService;
 
     public BidListController(BidListService bidListService) {
@@ -29,7 +25,6 @@ public class BidListController {
     @RequestMapping("/bidList/list")
     public String home(Model model)
     {
-        logger.info("getTest");
         // TODO: call service find all bids to show to the view
         ArrayList<BidList> bids = bidListService.getAllBidList();
         model.addAttribute("bids", bids);

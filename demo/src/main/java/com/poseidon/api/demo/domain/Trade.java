@@ -1,38 +1,37 @@
-package com.poseidon.api.domain;
+package com.poseidon.api.demo.domain;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "bid_list")
-public class BidList {
+@Table(name = "trade")
+public class Trade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "bidListId")
-    private Integer bidListId;
+    @Column(name = "tradeId")
+    private Integer tradeId;
     @Column(name = "account")
-    @NotBlank(message = "Account is mandatory")
+    @NotBlank(message = "account is mandatory")
     private String account;
-    @NotBlank(message = "Type is mandatory")
     @Column(name = "type")
+    @NotBlank(message = "type is mandatory")
     private String type;
-    @Column(name = "bidQuantity")
-    private Double bidQuantity;
-    @Column(name = "askQuantity")
-    private Double askQuantity;
-    @Column(name = "bid")
-    private Double bid;
-    @Column(name = "ask")
-    private Double ask;
+    @Column(name = "buyQuantity")
+    private Double buyQuantity;
+    @Column(name = "sellQuantity")
+    private Double sellQuantity;
+    @Column(name = "buyPrice")
+    private Double buyPrice;
+    @Column(name = "sellPrice")
+    private Double sellPrice;
     @Column(name = "benchmark")
     private String benchmark;
-    @Column(name = "bidListDate")
-    private Timestamp bidListDate;
-    @Column(name = "commentary")
-    private String commentary;
-    @Column(name = "bidSecurity")
+    @Column(name = "tradeDate")
+    private Timestamp tradeDate;
+    @Column(name = "security")
     private String security;
     @Column(name = "status")
     private String status;
@@ -47,7 +46,7 @@ public class BidList {
     @Column(name = "revisionName")
     private String revisionName;
     @Column(name = "revisionDate")
-    private Timestamp revisionDate;
+    private String revisionDate;
     @Column(name = "dealName")
     private String dealName;
     @Column(name = "dealType")
@@ -57,19 +56,23 @@ public class BidList {
     @Column(name = "side")
     private String side;
 
-    public BidList() {
+    public Trade() {
     }
 
-    public BidList(String account, String type, Double bidQuantity, Double askQuantity, Double bid, Double ask, String benchmark, Timestamp bidListDate, String commentary, String security, String status, String trader, String book, String creationName, Timestamp creationDate, String revisionName, Timestamp revisionDate, String dealName, String dealType, String sourceListId, String side) {
+    public Trade(String account, String type) {
         this.account = account;
         this.type = type;
-        this.bidQuantity = bidQuantity;
-        this.askQuantity = askQuantity;
-        this.bid = bid;
-        this.ask = ask;
+    }
+
+    public Trade(String account, String type, Double buyQuantity, Double sellQuantity, Double buyPrice, Double sellPrice, String benchmark, Timestamp tradeDate, String security, String status, String trader, String book, String creationName, Timestamp creationDate, String revisionName, String revisionDate, String dealName, String dealType, String sourceListId, String side) {
+        this.account = account;
+        this.type = type;
+        this.buyQuantity = buyQuantity;
+        this.sellQuantity = sellQuantity;
+        this.buyPrice = buyPrice;
+        this.sellPrice = sellPrice;
         this.benchmark = benchmark;
-        this.bidListDate = bidListDate;
-        this.commentary = commentary;
+        this.tradeDate = tradeDate;
         this.security = security;
         this.status = status;
         this.trader = trader;
@@ -84,18 +87,12 @@ public class BidList {
         this.side = side;
     }
 
-    public BidList(String account, String type, Double bidQuantity) {
-        this.account = account;
-        this.type = type;
-        this.bidQuantity = bidQuantity;
+    public Integer getTradeId() {
+        return tradeId;
     }
 
-    public Integer getBidListId() {
-        return bidListId;
-    }
-
-    public void setBidListId(Integer bidListId) {
-        bidListId = bidListId;
+    public void setTradeId(Integer tradeId) {
+        this.tradeId = tradeId;
     }
 
     public String getAccount() {
@@ -114,36 +111,36 @@ public class BidList {
         this.type = type;
     }
 
-    public Double getBidQuantity() {
-        return bidQuantity;
+    public Double getBuyQuantity() {
+        return buyQuantity;
     }
 
-    public void setBidQuantity(Double bidQuantity) {
-        bidQuantity = bidQuantity;
+    public void setBuyQuantity(Double buyQuantity) {
+        this.buyQuantity = buyQuantity;
     }
 
-    public Double getAskQuantity() {
-        return askQuantity;
+    public Double getSellQuantity() {
+        return sellQuantity;
     }
 
-    public void setAskQuantity(Double askQuantity) {
-        this.askQuantity = askQuantity;
+    public void setSellQuantity(Double sellQuantity) {
+        this.sellQuantity = sellQuantity;
     }
 
-    public Double getBid() {
-        return bid;
+    public Double getBuyPrice() {
+        return buyPrice;
     }
 
-    public void setBid(Double bid) {
-        this.bid = bid;
+    public void setBuyPrice(Double buyPrice) {
+        this.buyPrice = buyPrice;
     }
 
-    public Double getAsk() {
-        return ask;
+    public Double getSellPrice() {
+        return sellPrice;
     }
 
-    public void setAsk(Double ask) {
-        this.ask = ask;
+    public void setSellPrice(Double sellPrice) {
+        this.sellPrice = sellPrice;
     }
 
     public String getBenchmark() {
@@ -154,20 +151,12 @@ public class BidList {
         this.benchmark = benchmark;
     }
 
-    public Timestamp getBidListDate() {
-        return bidListDate;
+    public Timestamp getTradeDate() {
+        return tradeDate;
     }
 
-    public void setBidListDate(Timestamp bidListDate) {
-        this.bidListDate = bidListDate;
-    }
-
-    public String getCommentary() {
-        return commentary;
-    }
-
-    public void setCommentary(String commentary) {
-        this.commentary = commentary;
+    public void setTradeDate(Timestamp tradeDate) {
+        this.tradeDate = tradeDate;
     }
 
     public String getSecurity() {
@@ -226,11 +215,11 @@ public class BidList {
         this.revisionName = revisionName;
     }
 
-    public Timestamp getRevisionDate() {
+    public String getRevisionDate() {
         return revisionDate;
     }
 
-    public void setRevisionDate(Timestamp revisionDate) {
+    public void setRevisionDate(String revisionDate) {
         this.revisionDate = revisionDate;
     }
 
@@ -268,17 +257,16 @@ public class BidList {
 
     @Override
     public String toString() {
-        return "BidList{" +
-                "BidListId=" + bidListId +
+        return "Trade{" +
+                "tradeId=" + tradeId +
                 ", account='" + account + '\'' +
                 ", type='" + type + '\'' +
-                ", BidQuantity=" + bidQuantity +
-                ", askQuantity=" + askQuantity +
-                ", bid=" + bid +
-                ", ask=" + ask +
+                ", buyQuantity=" + buyQuantity +
+                ", sellQuantity=" + sellQuantity +
+                ", buyPrice=" + buyPrice +
+                ", sellPrice=" + sellPrice +
                 ", benchmark='" + benchmark + '\'' +
-                ", bidListDate=" + bidListDate +
-                ", commentary='" + commentary + '\'' +
+                ", tradeDate=" + tradeDate +
                 ", security='" + security + '\'' +
                 ", status='" + status + '\'' +
                 ", trader='" + trader + '\'' +
@@ -286,11 +274,12 @@ public class BidList {
                 ", creationName='" + creationName + '\'' +
                 ", creationDate=" + creationDate +
                 ", revisionName='" + revisionName + '\'' +
-                ", revisionDate=" + revisionDate +
+                ", revisionDate='" + revisionDate + '\'' +
                 ", dealName='" + dealName + '\'' +
                 ", dealType='" + dealType + '\'' +
                 ", sourceListId='" + sourceListId + '\'' +
                 ", side='" + side + '\'' +
                 '}';
     }
+
 }

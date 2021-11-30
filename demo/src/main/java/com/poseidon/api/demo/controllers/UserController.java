@@ -1,17 +1,13 @@
-package com.poseidon.api.controllers;
+package com.poseidon.api.demo.controllers;
 
-import com.poseidon.api.domain.User;
-import com.poseidon.api.repositories.UserRepository;
+import com.poseidon.api.demo.domain.User;
+import com.poseidon.api.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.validation.Valid;
 
 @Controller
 public class UserController {

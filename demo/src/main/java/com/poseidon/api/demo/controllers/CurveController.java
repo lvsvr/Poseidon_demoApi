@@ -1,6 +1,6 @@
-package com.poseidon.api.controllers;
+package com.poseidon.api.demo.controllers;
 
-import com.poseidon.api.domain.CurvePoint;
+import com.poseidon.api.demo.domain.CurvePoint;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
