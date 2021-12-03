@@ -17,6 +17,19 @@
 			<!--
 			TODO: Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid
 			 -->
+			<legend>Account</legend>
+			<input type="text" class="form-control" placeholder="${bidList.account}" th:field="*{account}" required
+				   autofocus="autofocus">
+			<br>
+			<legend>Type</legend>
+			<input type="text" class="form-control" placeholder="${bidList.type}" th:field="*{type}" required
+				   autofocus="autofocus">
+			<br>
+			<legend>Bid quantity</legend>
+			<input type="number" class="form-control" placeholder="${biList.bidQuantity}" th:field="*{{bidQuantity}}" autofocus="autofocus" required>
+			<br>
+			<a href="/bidList/list" class="btn btn-danger col-2" role="button" aria-pressed="true">Cancel</a>
+			<button type="submit" class="col-3 btn btn-primary">Update BidList</button>
 		</form>
 	</div>
 

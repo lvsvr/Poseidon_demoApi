@@ -18,4 +18,24 @@ public class BidListService {
     public ArrayList<BidList> getAllBidList(){
         return (ArrayList<BidList>) bidListRepository.findAll();
     }
+    
+    public BidList addBidList(BidList bidList){
+        return bidListRepository.save(bidList);
+    }
+
+    public BidList getBidListById(Integer id){
+        return bidListRepository.getById(id);
+    }
+
+    public void updateBidList (BidList bidList, BidList updatedBidList){
+        bidList.setAccount(updatedBidList.getAccount());
+        bidList.setType(updatedBidList.getType());
+        bidList.setBidQuantity(updatedBidList.getBidQuantity());
+        bidListRepository.save(bidList);
+    }
+
+    public void deleteBidList (BidList bidList) {
+        bidListRepository.delete(bidList);
+    }
+
 }
