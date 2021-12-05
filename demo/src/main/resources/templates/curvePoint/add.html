@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container">
@@ -18,7 +18,20 @@
 			<!--
 			TODO: Create a form to input the values of CurvePoint, there are 2 buttons: Save data and Cancel to the list CurvePoint
 			 -->
-
+			<legend>Curve Id</legend>
+			<input type="number" class="form-control" placeholder="Curve Id" th:field="*{{curveId}}" required
+				   autofocus="autofocus">
+			<label class="text-danger">must not be null</label>
+			<br>
+			<legend>Term</legend>
+			<input type="number" step="any" class="form-control" placeholder="Term" th:field="*{{term}}"
+				   autofocus="autofocus">
+			<br>
+			<legend>Value</legend>
+			<input type="number" step="any" class="form-control" placeholder="Value" th:field="*{{value}}" autofocus="autofocus">
+			<br>
+			<a href="/curvePoint/list" class="btn btn-danger col-2" role="button" aria-pressed="true">Cancel</a>
+			<button type="submit" class="col-3 btn btn-primary">Add CurvePoint</button>
 		</form>
 	</div>
 

@@ -1,4 +1,4 @@
-package com.poseidon.api.domain;
+package com.poseidon.api.demo.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -84,18 +84,12 @@ public class BidList {
         this.side = side;
     }
 
-    public BidList(String account, String type, Double bidQuantity) {
-        this.account = account;
-        this.type = type;
-        this.bidQuantity = bidQuantity;
-    }
-
     public Integer getBidListId() {
         return bidListId;
     }
 
     public void setBidListId(Integer bidListId) {
-        bidListId = bidListId;
+        this.bidListId = bidListId;
     }
 
     public String getAccount() {
@@ -119,7 +113,7 @@ public class BidList {
     }
 
     public void setBidQuantity(Double bidQuantity) {
-        bidQuantity = bidQuantity;
+        this.bidQuantity = bidQuantity;
     }
 
     public Double getAskQuantity() {
@@ -269,10 +263,10 @@ public class BidList {
     @Override
     public String toString() {
         return "BidList{" +
-                "BidListId=" + bidListId +
+                "bidListId=" + bidListId +
                 ", account='" + account + '\'' +
                 ", type='" + type + '\'' +
-                ", BidQuantity=" + bidQuantity +
+                ", bidQuantity=" + bidQuantity +
                 ", askQuantity=" + askQuantity +
                 ", bid=" + bid +
                 ", ask=" + ask +

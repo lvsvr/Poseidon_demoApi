@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Home</title>
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container">
@@ -18,6 +18,22 @@
 			<!--
 			TODO: Create a form to edit the values of Rating, there are 2 buttons: Update data and Cancel to the Rating
 			 -->
+			<legend>MoodysRating</legend>
+			<input type="text" class="form-control" placeholder="MoodysRating" th:field="*{moodysRating}"
+				   autofocus="autofocus">
+			<br>
+			<legend>SandRating</legend>
+			<input type="text" class="form-control" placeholder="SandRating" th:field="*{sandPRating}"
+				   autofocus="autofocus">
+			<br>
+			<legend>FitchRating</legend>
+			<input type="text" class="form-control" placeholder="FitchRating" th:field="*{fitchRating}" autofocus="autofocus">
+			<br>
+			<legend>Order</legend>
+			<input type="number" class="form-control" placeholder="OrderNumber" th:field="*{orderNumber}" autofocus="autofocus">
+			<br>
+			<a href="/rating/list" class="btn btn-danger col-2" role="button" aria-pressed="true">Cancel</a>
+			<button type="submit" class="col-3 btn btn-primary">Update Rating</button>
 		</form>
 	</div>
 

@@ -1,4 +1,4 @@
-package com.poseidon.api.controllers;
+package com.poseidon.api.demo.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

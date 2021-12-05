@@ -1,6 +1,6 @@
-package com.poseidon.api.controllers;
+package com.poseidon.api.demo.controllers;
 
-import com.poseidon.api.repositories.UserRepository;
+import com.poseidon.api.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

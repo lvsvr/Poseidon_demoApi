@@ -1,4 +1,4 @@
-package com.poseidon.api.domain;
+package com.poseidon.api.demo.domain;
 
 
 import javax.persistence.*;
@@ -23,6 +23,9 @@ public class RuleName {
     private String sqlStr;
     @Column(name = "sqlPart")
     private String sqlPart;
+
+    public RuleName() {
+    }
 
     public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
         this.name = name;

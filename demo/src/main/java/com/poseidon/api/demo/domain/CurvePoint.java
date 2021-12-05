@@ -1,7 +1,8 @@
-package com.poseidon.api.domain;
+package com.poseidon.api.demo.domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 @Entity
@@ -13,7 +14,7 @@ public class CurvePoint {
     @Column(name = "id")
     private Integer id;
     @Column(name = "curveId")
-    private Integer CurveId;
+    private Integer curveId;
     @Column(name = "asOfDate")
     private Timestamp asOfDate;
     @Column(name = "term")
@@ -26,14 +27,8 @@ public class CurvePoint {
     public CurvePoint() {
     }
 
-    public CurvePoint(Integer id, Double term, Double value) {
-        this.id = id;
-        this.term = term;
-        this.value = value;
-    }
-
     public CurvePoint(Integer curveId, Timestamp asOfDate, Double term, Double value, Timestamp creationDate) {
-        CurveId = curveId;
+        this.curveId = curveId;
         this.asOfDate = asOfDate;
         this.term = term;
         this.value = value;
@@ -49,11 +44,11 @@ public class CurvePoint {
     }
 
     public Integer getCurveId() {
-        return CurveId;
+        return curveId;
     }
 
     public void setCurveId(Integer curveId) {
-        CurveId = curveId;
+        this.curveId = curveId;
     }
 
     public Timestamp getAsOfDate() {
@@ -92,7 +87,7 @@ public class CurvePoint {
     public String toString() {
         return "CurvePoint{" +
                 "id=" + id +
-                ", CurveId=" + CurveId +
+                ", curveId=" + curveId +
                 ", asOfDate=" + asOfDate +
                 ", term=" + term +
                 ", value=" + value +
