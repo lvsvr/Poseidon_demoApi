@@ -29,7 +29,7 @@
 			<label class="text-danger">Type is mandatory</label>
 			<br>
 			<legend>Bid quantity</legend>
-			<input type="number" class="form-control" placeholder="Bid quantity" th:field="*{{bidQuantity}}" autofocus="autofocus" required>
+			<input type="number" step="any" class="form-control" placeholder="Bid quantity" th:field="*{{bidQuantity}}" autofocus="autofocus">
 			<br>
 			<a href="/bidList/list" class="btn btn-danger col-2" role="button" aria-pressed="true">Cancel</a>
 			<button type="submit" class="col-3 btn btn-primary">Add BidList</button>

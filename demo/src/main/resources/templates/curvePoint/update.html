@@ -17,6 +17,19 @@
 			<!--
 			TODO: Create a form to edit the values of CurvePoint, there are 2 buttons: Update data and Cancel to the Curve Point
 			 -->
+			<legend>Curve Id</legend>
+			<input type="number" class="form-control" placeholder="Curve Id" th:field="*{curveId}" required
+				   autofocus="autofocus">
+			<br>
+			<legend>Term</legend>
+			<input type="number" class="form-control" placeholder="Term" th:field="*{{term}}"
+				   autofocus="autofocus">
+			<br>
+			<legend>Value</legend>
+			<input type="number" class="form-control" placeholder="Value" th:field="*{{value}}" autofocus="autofocus">
+			<br>
+			<a href="/curvePoint/list" class="btn btn-danger col-2" role="button" aria-pressed="true">Cancel</a>
+			<button type="submit" class="col-3 btn btn-primary">Update curvePoint</button>
 		</form>
 	</div>
 
