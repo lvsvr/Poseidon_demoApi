@@ -38,6 +38,13 @@ class RatingServiceTest {
         underTest.updateRating(rating1, rating2);
 //        THEN
         Assert.assertEquals(rating1.getMoodysRating(), rating2.getMoodysRating());
+// Delete
+//        WHEN
+        underTest.deleteRating(rating2);
+//        THEN
+        assertFalse(underTest.getAllRatings().contains(rating2));
+
     }
+
 
 }

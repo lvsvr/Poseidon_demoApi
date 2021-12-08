@@ -17,6 +17,9 @@ class BidListServiceTest {
     @Autowired
     private BidListService underTest;
 
+    @Autowired
+    private BidListRepository bidRepo;
+
     private BidList bid1 = new BidList();
     private BidList bid2 = new BidList();
 
@@ -46,12 +49,10 @@ class BidListServiceTest {
 //        THEN
         Assert.assertEquals(bid1.getAskQuantity(), bid2.getAskQuantity());
 // Delete
-////        WHEN
-//        underTest.deleteBidList(bid2);
-//        Optional<BidList> bid3 = underTest.getBidListById(bid2.getBidListId());
-//
-////        THEN
-//        Assert.assertFalse(bid3);
+//        WHEN
+        underTest.deleteBidList(bid2);
+//        THEN
+        assertFalse(underTest.getAllBidList().contains(bid2));
 
     }
 }

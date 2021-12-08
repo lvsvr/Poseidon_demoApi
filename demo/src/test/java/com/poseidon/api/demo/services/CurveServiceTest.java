@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 @SpringBootTest
 class CurveServiceTest {
 
@@ -39,10 +41,10 @@ class CurveServiceTest {
         underTest.updateCurvePoint(curve1, curve2);
 //        THEN
         Assert.assertEquals(curve1.getValue(), curve2.getValue());
-//// Delete
-////        WHEN
-//        underTest.deleteCurvePoint(curve2);
-////        THEN
-//        Assert.assertNull(underTest.getCurvePointById(curve2.getId()));
+// Delete
+//        WHEN
+        underTest.deleteCurvePoint(curve2);
+//        THEN
+        assertFalse(underTest.getAllCurvePoint().contains(curve2));
     }
 }

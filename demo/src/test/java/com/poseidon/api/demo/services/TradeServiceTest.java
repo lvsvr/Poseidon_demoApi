@@ -18,7 +18,7 @@ class TradeServiceTest {
     private Trade trade2 = new Trade();
 
     @Test
-    void shouldCRUDTrade(){
+    void shouldCRUDTrade() {
 //        GIVEN
         trade1.setAccount("account1");
         trade1.setType("type1");
@@ -41,6 +41,11 @@ class TradeServiceTest {
         underTest.updateTrade(trade1, trade2);
 //        THEN
         Assert.assertEquals(trade1.getBuyQuantity(), trade2.getBuyQuantity());
+        // Delete
+//        WHEN
+        underTest.deleteTrade(trade2);
+//        THEN
+        assertFalse(underTest.getAllTrades().contains(trade2));
 
     }
 }

@@ -37,6 +37,12 @@ class RuleNameServiceTest {
         underTest.updateRuleName(rule1, rule2);
 //        THEN
         Assert.assertEquals(rule1.getName(),rule2.getName());
+
+// Delete
+//        WHEN
+        underTest.deleteRuleName(rule2);
+//        THEN
+        assertFalse(underTest.getAllRuleNames().contains(rule2));
     }
 
 }
