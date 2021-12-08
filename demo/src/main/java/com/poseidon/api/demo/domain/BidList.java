@@ -84,6 +84,7 @@ public class BidList {
         this.side = side;
     }
 
+
     public Integer getBidListId() {
         return bidListId;
     }
