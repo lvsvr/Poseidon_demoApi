@@ -2,6 +2,7 @@ package com.poseidon.api.demo.domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "rule_name")
@@ -11,6 +12,7 @@ public class RuleName {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
+    @NotBlank(message = "Name is mandatory")
     @Column(name = "name")
     private String name;
     @Column(name = "description")

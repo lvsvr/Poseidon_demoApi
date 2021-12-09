@@ -19,9 +19,11 @@
 			TODO: Create a form to input the values of CurvePoint, there are 2 buttons: Save data and Cancel to the list CurvePoint
 			 -->
 			<legend>Curve Id</legend>
-			<input type="number" class="form-control" placeholder="Curve Id" th:field="*{{curveId}}" required
-				   autofocus="autofocus">
-			<label class="text-danger">must not be null</label>
+			<div>
+				<input type="number" class="form-control" placeholder="Curve Id" th:field="*{{curveId}}">
+				<p class="text-danger" th:if="${#fields.hasErrors('curveId')}" th:errorclass="error"
+				   th:errors="*{{curveId}}"/>
+			</div>
 			<br>
 			<legend>Term</legend>
 			<input type="number" step="any" class="form-control" placeholder="Term" th:field="*{{term}}"

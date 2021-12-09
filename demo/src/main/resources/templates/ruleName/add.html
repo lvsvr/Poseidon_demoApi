@@ -19,9 +19,11 @@
 			TODO: Create a form to input the values of RuleName, there are 2 buttons: Save data and Cancel to the list RuleName
 			 -->
 			<legend>Name</legend>
-			<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required
-				   autofocus="autofocus">
-			<label class="text-danger">Name is mandatory</label>
+			<div>
+				<input type="text" class="form-control" placeholder="Name" th:field="*{name}">
+				<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errorclass="error"
+				   th:errors="*{name}"/>
+			</div>
 			<br>
 			<legend>Description</legend>
 			<input type="text" class="form-control" placeholder="Description" th:field="*{description}"
