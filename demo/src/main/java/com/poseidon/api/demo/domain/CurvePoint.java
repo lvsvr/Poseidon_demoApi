@@ -3,6 +3,7 @@ package com.poseidon.api.demo.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -13,6 +14,7 @@ public class CurvePoint {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
+    @NotNull(message = "must not be null")
     @Column(name = "curveId")
     private Integer curveId;
     @Column(name = "asOfDate")

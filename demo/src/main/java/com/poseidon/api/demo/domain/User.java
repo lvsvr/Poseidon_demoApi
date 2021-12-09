@@ -1,6 +1,8 @@
 package com.poseidon.api.demo.domain;
 
 
+import com.poseidon.api.demo.config.ValidPassword;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -15,6 +17,7 @@ public class User {
     @Column(name = "username")
     @NotBlank(message = "Username is mandatory")
     private String username;
+    @ValidPassword
     @Column(name = "password")
     @NotBlank(message = "Password is mandatory")
     private String password;

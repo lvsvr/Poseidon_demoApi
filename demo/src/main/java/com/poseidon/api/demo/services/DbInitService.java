@@ -2,8 +2,6 @@ package com.poseidon.api.demo.services;
 
 import com.poseidon.api.demo.domain.User;
 import com.poseidon.api.demo.repositories.UserRepository;
-import com.poseidon.api.demo.domain.User;
-import com.poseidon.api.demo.repositories.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
@@ -23,7 +21,7 @@ public class DbInitService implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        User user = new User("admin", encoder.encode("123"), "admin", "ADMIN");
+        User user = new User("admin", encoder.encode("1Test@dm0"), "admin", "ADMIN");
         this.userRepository.save(user);
             }
 
