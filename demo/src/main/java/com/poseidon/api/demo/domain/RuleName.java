@@ -70,14 +70,6 @@ public class RuleName {
         this.json = json;
     }
 
-    public String getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
     public String getSqlStr() {
         return sqlStr;
     }
