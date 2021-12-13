@@ -56,23 +56,23 @@ public class BidListController {
     }
 
     @GetMapping("/bidList/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Bid by Id and to model then show to the form
-        BidList bid = bidListService.getBidListById(id);
-        logger.info(appUser.getUser().getUsername() + " has selected a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
-        model.addAttribute("bidList", bid);
+        model.addAttribute("bidList", bidListService.getBidListById(id));
         return "bidList/update";
     }
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bid,
+    public String updateBid(@PathVariable("id") Integer id, @Valid BidList updatedBid,
                             BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: check required fields, if valid call service to update Bid and return list Bid
         model.addAttribute("bidList", bidListService.getBidListById(id));
         if (result.hasErrors()) {
             return "bidList/update/{id}";
         } else {
-            bidListService.updateBidList(bidListService.getBidListById(id), bid);
+            BidList bid = bidListService.getBidListById(id);
+            logger.info(appUser.getUser().getUsername() + " has selected a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+            bidListService.updateBidList(bidListService.getBidListById(id), updatedBid);
             logger.info(appUser.getUser().getUsername() + " has updated a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
         }
         return "redirect:/bidList/list";

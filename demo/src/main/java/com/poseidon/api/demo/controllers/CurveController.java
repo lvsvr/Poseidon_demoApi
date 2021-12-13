@@ -50,37 +50,36 @@ public class CurveController {
             return "curvePoint/add";
         } else {
             curveService.addCurvePoint(curvePoint);
-            logger.info(appUser.getUser().getUsername() + " added a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
+            logger.info(appUser.getUser().getUsername() + " has added a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
         }
         return "curvePoint/add";
     }
 
     @GetMapping("/curvePoint/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get CurvePoint by Id and to model then show to the form
-        CurvePoint curvePoint = curveService.getCurvePointById(id);
-        model.addAttribute("curvePoint", curvePoint);
-        logger.info(appUser.getUser().getUsername() + " has selected a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
-
+        model.addAttribute("curvePoint", curveService.getCurvePointById(id));
         return "curvePoint/update";
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
+    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint updatedCurvePoint,
                             BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: check required fields, if valid call service to update Curve and return Curve list
         model.addAttribute("curvePoint", curveService.getCurvePointById(id));
         if (result.hasErrors()) {
             return "/curvePoint/update/{id}";
         } else {
-            curveService.updateCurvePoint(curveService.getCurvePointById(id), curvePoint);
+            CurvePoint curvePoint = curveService.getCurvePointById(id);
+            logger.info(appUser.getUser().getUsername() + " has selected a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
+            curveService.updateCurvePoint(curvePoint, updatedCurvePoint);
             logger.info(appUser.getUser().getUsername() + " has updated a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
         }
         return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model,@AuthenticationPrincipal AppUser appUser) {
+    public String deleteBid(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: Find Curve by Id and delete the Curve, return to Curve list
         CurvePoint curvePoint = curveService.getCurvePointById(id);
         curveService.deleteCurvePoint(curvePoint);

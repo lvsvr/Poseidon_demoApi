@@ -22,12 +22,14 @@ class RuleNameTest {
         rule0.setId(1);
         rule0.setDescription("d0");
         rule0.setJson("test");
+        rule0.setTemplate("test");
         rule0.setSqlStr("test");
         rule0.setSqlPart("test");
 //        THEN
         Assert.assertNotNull(rule0.getId());
         assertEquals("d0", rule0.getDescription());
         assertEquals("test", rule0.getJson());
+        assertEquals("test", rule0.getTemplate());
         assertEquals("test", rule0.getSqlStr());
         assertEquals("test", rule0.getSqlPart());
         Assert.assertNotNull(rule0.toString());

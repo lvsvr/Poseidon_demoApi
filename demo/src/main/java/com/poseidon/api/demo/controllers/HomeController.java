@@ -19,8 +19,7 @@ public class HomeController {
     }
 
     @RequestMapping("/home")
-    public String adminHome(Model model, @AuthenticationPrincipal AppUser appUser) {
-        logger.info("User connected: " + appUser.getUser().getUsername());
+    public String adminHome(Model model) {
         return "home";
     }
 

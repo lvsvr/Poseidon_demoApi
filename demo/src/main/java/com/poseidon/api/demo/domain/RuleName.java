@@ -62,6 +62,14 @@ public class RuleName {
         this.description = description;
     }
 
+    public String getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
     public String getJson() {
         return json;
     }

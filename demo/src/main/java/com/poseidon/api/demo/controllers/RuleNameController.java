@@ -1,10 +1,12 @@
 package com.poseidon.api.demo.controllers;
 
 import com.poseidon.api.demo.DemoApplication;
+import com.poseidon.api.demo.config.AppUser;
 import com.poseidon.api.demo.domain.RuleName;
 import com.poseidon.api.demo.services.RuleNameService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,13 +42,14 @@ public class RuleNameController {
     }
 
     @PostMapping("/ruleName/validate")
-    public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
+    public String validate(@Valid RuleName ruleName, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: check data valid and save to db, after saving return RuleName list
         model.addAttribute("ruleName", ruleName);
         if (result.hasErrors()) {
             return "ruleName/add";
         } else {
             ruleNameService.addRuleName(ruleName);
+            logger.info(appUser.getUser().getUsername() + " has added a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
         }
         return "ruleName/add";
     }
@@ -59,22 +62,27 @@ public class RuleNameController {
     }
 
     @PostMapping("/ruleName/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
-                                 BindingResult result, Model model) {
+    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName updatedRuleName,
+                                 BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: check required fields, if valid call service to update RuleName and return RuleName list
         model.addAttribute("ruleName", ruleNameService.getRuleNameById(id));
         if (result.hasErrors()) {
             return "/ruleName/update/{id}";
         } else {
-            ruleNameService.updateRuleName(ruleNameService.getRuleNameById(id), ruleName);
+            RuleName ruleName = ruleNameService.getRuleNameById(id);
+            logger.info(appUser.getUser().getUsername() + " has selected a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
+            ruleNameService.updateRuleName(ruleName, updatedRuleName);
+            logger.info(appUser.getUser().getUsername() + " has updated a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
         }
         return "redirect:/ruleName/list";
     }
 
     @GetMapping("/ruleName/delete/{id}")
-    public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
+    public String deleteRuleName(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-        ruleNameService.deleteRuleName(ruleNameService.getRuleNameById(id));
+        RuleName ruleName = ruleNameService.getRuleNameById(id);
+        ruleNameService.deleteRuleName(ruleName);
+        logger.info(appUser.getUser().getUsername() + " has deleted a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
         return "redirect:/ruleName/list";
     }
 
