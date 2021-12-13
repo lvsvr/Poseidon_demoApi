@@ -1,37 +1,39 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-	<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container">
-	<div class="row">
-		<h2>Update Bid</h2>
-	</div>
+    <div class="row">
+        <h2>Update Bid</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid
-			 -->
-			<legend>Account</legend>
-			<input type="text" class="form-control" placeholder="Account" th:field="*{account}" required
-				   autofocus="autofocus">
-			<br>
-			<legend>Type</legend>
-			<input type="text" class="form-control" placeholder="Type" th:field="*{type}" required
-				   autofocus="autofocus">
-			<br>
-			<legend>Bid quantity</legend>
-			<input type="number" class="form-control" placeholder="Bid quantity" th:field="*{{bidQuantity}}" autofocus="autofocus">
-			<br>
-			<a href="/bidList/list" class="btn btn-danger col-2" role="button" aria-pressed="true">Cancel</a>
-			<button type="submit" class="col-3 btn btn-primary">Update BidList</button>
-		</form>
-	</div>
+    <div class="row">
+        <form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}"
+              method="post" class="form-horizontal" style="width: 100%">
+            <!--
+            TODO: Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid
+             -->
+            <legend>Account</legend>
+            <input type="text" class="form-control" placeholder="Account" th:field="*{account}" required
+                   autofocus="autofocus">
+            <br>
+            <legend>Type</legend>
+            <input type="text" class="form-control" placeholder="Type" th:field="*{type}" required
+                   autofocus="autofocus">
+            <br>
+            <legend>Bid quantity</legend>
+            <input type="number" class="form-control" placeholder="Bid quantity" th:field="*{{bidQuantity}}"
+                   autofocus="autofocus">
+            <br>
+            <a href="/bidList/list" class="btn btn-danger col-2" role="button" aria-pressed="true">Cancel</a>
+            <button type="submit" class="col-3 btn btn-primary">Update BidList</button>
+        </form>
+    </div>
 
 </div>
 </body>

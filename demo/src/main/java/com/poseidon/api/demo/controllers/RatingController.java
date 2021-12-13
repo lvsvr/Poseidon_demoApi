@@ -1,10 +1,12 @@
 package com.poseidon.api.demo.controllers;
 
 import com.poseidon.api.demo.DemoApplication;
+import com.poseidon.api.demo.config.AppUser;
 import com.poseidon.api.demo.domain.Rating;
 import com.poseidon.api.demo.services.RatingService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,8 +31,7 @@ public class RatingController {
 
 
     @RequestMapping("/rating/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: find all Rating, add to model
         ArrayList<Rating> ratings = ratingService.getAllRatings();
         model.addAttribute("ratings", ratings);
@@ -43,14 +44,14 @@ public class RatingController {
     }
 
     @PostMapping("/rating/validate")
-    public String validate(@Valid Rating rating, BindingResult result, Model model) {
+    public String validate(@Valid Rating rating, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: check data valid and save to db, after saving return Rating list
         model.addAttribute("rating", rating);
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "rating/add";
-        }
-        else{
+        } else {
             ratingService.addRating(rating);
+            logger.info(appUser.getUser().getUsername() + " has added a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
         }
         return "rating/add";
     }
@@ -63,23 +64,27 @@ public class RatingController {
     }
 
     @PostMapping("/rating/update/{id}")
-    public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
-                               BindingResult result, Model model) {
+    public String updateRating(@PathVariable("id") Integer id, @Valid Rating upDatedRating,
+                               BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
         model.addAttribute("rating", ratingService.getRatingById(id));
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "/rating/update/{id}";
-        }
-        else{
-            ratingService.updateRating(ratingService.getRatingById(id), rating);
+        } else {
+            Rating rating = ratingService.getRatingById(id);
+            logger.info(appUser.getUser().getUsername() + " has selected a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
+            ratingService.updateRating(ratingService.getRatingById(id), upDatedRating);
+            logger.info(appUser.getUser().getUsername() + " has updated a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
         }
         return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/delete/{id}")
-    public String deleteRating(@PathVariable("id") Integer id, Model model) {
+    public String deleteRating(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: Find Rating by Id and delete the Rating, return to Rating list
-        ratingService.deleteRating(ratingService.getRatingById(id));
+        Rating rating = ratingService.getRatingById(id);
+        ratingService.deleteRating(rating);
+        logger.info(appUser.getUser().getUsername() + " has deleted a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
         return "redirect:/rating/list";
     }
 }

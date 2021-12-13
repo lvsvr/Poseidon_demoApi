@@ -1,10 +1,12 @@
 package com.poseidon.api.demo.controllers;
 
 import com.poseidon.api.demo.DemoApplication;
+import com.poseidon.api.demo.config.AppUser;
 import com.poseidon.api.demo.domain.Trade;
 import com.poseidon.api.demo.services.TradeService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,8 +29,7 @@ public class TradeController {
     }
 
     @RequestMapping("/trade/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: find all Trade, add to model
         ArrayList<Trade> trades = tradeService.getAllTrades();
         model.addAttribute("trades", trades);
@@ -41,15 +42,15 @@ public class TradeController {
     }
 
     @PostMapping("/trade/validate")
-    public String validate(@Valid Trade trade, BindingResult result, Model model) {
+    public String validate(@Valid Trade trade, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: check data valid and save to db, after saving return Trade list
-       model.addAttribute("trade", trade);
-       if(result.hasErrors()){
-           return "trade/add";
-       }
-       else{
-           tradeService.addTrade(trade);
-       }
+        model.addAttribute("trade", trade);
+        if (result.hasErrors()) {
+            return "trade/add";
+        } else {
+            tradeService.addTrade(trade);
+            logger.info(appUser.getUser().getUsername() + " has added a Trade - Id: " + trade.getTradeId() + " - Account: " + trade.getAccount() + " - Type: " + trade.getType() + " - Buy Quantity: " + trade.getBuyQuantity());
+        }
         return "trade/add";
     }
 
@@ -61,23 +62,27 @@ public class TradeController {
     }
 
     @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
-                              BindingResult result, Model model) {
+    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade updatedTrade,
+                              BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: check required fields, if valid call service to update Trade and return Trade list
         model.addAttribute("trade", tradeService.getTradeById(id));
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "/trade/update/{id}";
-        }
-        else{
-            tradeService.updateTrade(tradeService.getTradeById(id), trade);
+        } else {
+            Trade trade = tradeService.getTradeById(id);
+            logger.info(appUser.getUser().getUsername() + " has selected a Trade - Id: " + trade.getTradeId() + " - Account: " + trade.getAccount() + " - Type: " + trade.getType() + " - Buy Quantity: " + trade.getBuyQuantity());
+            tradeService.updateTrade(tradeService.getTradeById(id), updatedTrade);
+            logger.info(appUser.getUser().getUsername() + " has updated a Trade - Id: " + trade.getTradeId() + " - Account: " + trade.getAccount() + " - Type: " + trade.getType() + " - Buy Quantity: " + trade .getBuyQuantity());
         }
         return "redirect:/trade/list";
     }
 
     @GetMapping("/trade/delete/{id}")
-    public String deleteTrade(@PathVariable("id") Integer id, Model model) {
+    public String deleteTrade(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: Find Trade by Id and delete the Trade, return to Trade list
-        tradeService.deleteTrade(tradeService.getTradeById(id));
+        Trade trade = tradeService.getTradeById(id);
+        tradeService.deleteTrade(trade);
+        logger.info(appUser.getUser().getUsername() + " has deleted a Trade - Id: " + trade.getTradeId() + " - Account: " + trade.getAccount() + " - Type: " + trade.getType() + " - Buy Quantity: " + trade.getBuyQuantity());
         return "redirect:/trade/list";
     }
 }

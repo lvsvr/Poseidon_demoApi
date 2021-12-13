@@ -18,7 +18,7 @@ class RuleNameServiceTest {
     private RuleName rule2 = new RuleName();
 
     @Test
-    void shouldCRUDRuleName(){
+    void shouldCRUDRuleName() {
 //        GIVEN
         rule1.setName("test1");
         rule2.setName("test2");
@@ -28,7 +28,7 @@ class RuleNameServiceTest {
 //        THEN
 // Create
         Assert.assertNotNull(rule1.getId());
-        Assert.assertEquals(rule1.getName(), "test1","test1");
+        Assert.assertEquals(rule1.getName(), "test1", "test1");
 // Read
         Assert.assertNotNull(underTest.getRuleNameById(rule1.getId()));
         Assert.assertNotNull(underTest.getAllRuleNames());
@@ -36,7 +36,7 @@ class RuleNameServiceTest {
 //        WHEN
         underTest.updateRuleName(rule1, rule2);
 //        THEN
-        Assert.assertEquals(rule1.getName(),rule2.getName());
+        Assert.assertEquals(rule1.getName(), rule2.getName());
 
 // Delete
 //        WHEN

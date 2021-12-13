@@ -23,6 +23,6 @@ public class DbInitService implements CommandLineRunner {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = new User("admin", encoder.encode("1Test@dm0"), "admin", "ADMIN");
         this.userRepository.save(user);
-            }
+    }
 
 }

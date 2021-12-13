@@ -1,10 +1,12 @@
 package com.poseidon.api.demo.controllers;
 
 import com.poseidon.api.demo.DemoApplication;
+import com.poseidon.api.demo.config.AppUser;
 import com.poseidon.api.demo.domain.BidList;
 import com.poseidon.api.demo.services.BidListService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 
 @Controller
 public class BidListController {
-        // TODO: Inject Bid service
+    // TODO: Inject Bid service
     private BidListService bidListService;
     private static final Logger logger = LogManager.getLogger(DemoApplication.class);
 
@@ -27,8 +29,7 @@ public class BidListController {
     }
 
     @RequestMapping("/bidList/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: call service find all bids to show to the view
         ArrayList<BidList> bids = bidListService.getAllBidList();
         model.addAttribute("bids", bids);
@@ -41,15 +42,15 @@ public class BidListController {
     }
 
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bid, BindingResult result, Model model) {
+    public String validate(@Valid BidList bid, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: check data valid and save to db, after saving return bid list
         model.addAttribute("bidList", bid);
         logger.info(bid.toString());
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "bidList/add";
-        }
-        else{
-        bidListService.addBidList(bid);
+        } else {
+            bidListService.addBidList(bid);
+            logger.info(appUser.getUser().getUsername() + " has added a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
         }
         return "bidList/add";
     }
@@ -62,25 +63,27 @@ public class BidListController {
     }
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
-                            BindingResult result, Model model) {
+    public String updateBid(@PathVariable("id") Integer id, @Valid BidList updatedBid,
+                            BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: check required fields, if valid call service to update Bid and return list Bid
         model.addAttribute("bidList", bidListService.getBidListById(id));
-        logger.info(bidList.toString());
-        logger.info(bidListService.getBidListById(id));
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "bidList/update/{id}";
-        }
-        else {
-            bidListService.updateBidList(bidListService.getBidListById(id), bidList);
+        } else {
+            BidList bid = bidListService.getBidListById(id);
+            logger.info(appUser.getUser().getUsername() + " has selected a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+            bidListService.updateBidList(bidListService.getBidListById(id), updatedBid);
+            logger.info(appUser.getUser().getUsername() + " has updated a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
         }
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    public String deleteBid(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser) {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
-        bidListService.deleteBidList(bidListService.getBidListById(id));
+        BidList bid = bidListService.getBidListById(id);
+        bidListService.deleteBidList(bid);
+        logger.info(appUser.getUser().getUsername() + " has deleted a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
         return "redirect:/bidList/list";
     }
 
