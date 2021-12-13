@@ -17,7 +17,7 @@ class RatingTest {
     private RatingRepository ratingRepo;
 
     @Test
-    void shouldGetRating(){
+    void shouldGetRating() {
 //        GIVEN
         rating0.setMoodysRating("m0");
         rating0.setSandPRating("s0");

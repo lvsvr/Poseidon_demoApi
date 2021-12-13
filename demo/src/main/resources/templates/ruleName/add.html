@@ -1,54 +1,55 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-	<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container">
 
-	<div class="row">
-		<h2>Add New Rule</h2>
-	</div>
+    <div class="row">
+        <h2>Add New Rule</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/ruleName/validate}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of RuleName, there are 2 buttons: Save data and Cancel to the list RuleName
-			 -->
-			<legend>Name</legend>
-			<div>
-				<input type="text" class="form-control" placeholder="Name" th:field="*{name}">
-				<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errorclass="error"
-				   th:errors="*{name}"/>
-			</div>
-			<br>
-			<legend>Description</legend>
-			<input type="text" class="form-control" placeholder="Description" th:field="*{description}"
-				   autofocus="autofocus">
-			<br>
-			<legend>Json</legend>
-			<input type="text" class="form-control" placeholder="Json" th:field="*{json}"
-				   autofocus="autofocus">
-			<br>
-			<legend>Template</legend>
-			<input type="text" class="form-control" placeholder="Template" th:field="*{template}"
-				   autofocus="autofocus">
-			<br>
-			<legend>Sql</legend>
-			<input type="text" class="form-control" placeholder="Sql" th:field="*{sqlStr}"
-				   autofocus="autofocus">
-			<br>
-			<legend>SqlPart</legend>
-			<input type="text" class="form-control" placeholder="SqlPart" th:field="*{sqlPart}"
-				   autofocus="autofocus">
-			<br>
-			<a href="/ruleName/list" class="btn btn-danger col-2" role="button" aria-pressed="true">Cancel</a>
-			<button type="submit" class="col-3 btn btn-primary">Add RuleName</button>
-		</form>
-	</div>
+    <div class="row">
+        <form action="#" th:action="@{/ruleName/validate}" th:object="${ruleName}" method="post" class="form-horizontal"
+              style="width: 100%">
+            <!--
+            TODO: Create a form to input the values of RuleName, there are 2 buttons: Save data and Cancel to the list RuleName
+             -->
+            <legend>Name</legend>
+            <div>
+                <input type="text" class="form-control" placeholder="Name" th:field="*{name}">
+                <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errorclass="error"
+                   th:errors="*{name}"/>
+            </div>
+            <br>
+            <legend>Description</legend>
+            <input type="text" class="form-control" placeholder="Description" th:field="*{description}"
+                   autofocus="autofocus">
+            <br>
+            <legend>Json</legend>
+            <input type="text" class="form-control" placeholder="Json" th:field="*{json}"
+                   autofocus="autofocus">
+            <br>
+            <legend>Template</legend>
+            <input type="text" class="form-control" placeholder="Template" th:field="*{template}"
+                   autofocus="autofocus">
+            <br>
+            <legend>Sql</legend>
+            <input type="text" class="form-control" placeholder="Sql" th:field="*{sqlStr}"
+                   autofocus="autofocus">
+            <br>
+            <legend>SqlPart</legend>
+            <input type="text" class="form-control" placeholder="SqlPart" th:field="*{sqlPart}"
+                   autofocus="autofocus">
+            <br>
+            <a href="/ruleName/list" class="btn btn-danger col-2" role="button" aria-pressed="true">Cancel</a>
+            <button type="submit" class="col-3 btn btn-primary">Add RuleName</button>
+        </form>
+    </div>
 
 </div>
 </body>

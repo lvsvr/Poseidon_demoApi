@@ -27,8 +27,7 @@ public class TradeController {
     }
 
     @RequestMapping("/trade/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: find all Trade, add to model
         ArrayList<Trade> trades = tradeService.getAllTrades();
         model.addAttribute("trades", trades);
@@ -43,13 +42,12 @@ public class TradeController {
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Trade list
-       model.addAttribute("trade", trade);
-       if(result.hasErrors()){
-           return "trade/add";
-       }
-       else{
-           tradeService.addTrade(trade);
-       }
+        model.addAttribute("trade", trade);
+        if (result.hasErrors()) {
+            return "trade/add";
+        } else {
+            tradeService.addTrade(trade);
+        }
         return "trade/add";
     }
 
@@ -65,10 +63,9 @@ public class TradeController {
                               BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Trade and return Trade list
         model.addAttribute("trade", tradeService.getTradeById(id));
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "/trade/update/{id}";
-        }
-        else{
+        } else {
             tradeService.updateTrade(tradeService.getTradeById(id), trade);
         }
         return "redirect:/trade/list";

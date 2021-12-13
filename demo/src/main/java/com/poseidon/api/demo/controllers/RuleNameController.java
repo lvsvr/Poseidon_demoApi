@@ -27,8 +27,7 @@ public class RuleNameController {
     }
 
     @RequestMapping("/ruleName/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: find all RuleName, add to model
         ArrayList<RuleName> ruleNames = ruleNameService.getAllRuleNames();
         model.addAttribute("ruleNames", ruleNames);
@@ -46,8 +45,7 @@ public class RuleNameController {
         model.addAttribute("ruleName", ruleName);
         if (result.hasErrors()) {
             return "ruleName/add";
-        }
-        else{
+        } else {
             ruleNameService.addRuleName(ruleName);
         }
         return "ruleName/add";
@@ -65,10 +63,9 @@ public class RuleNameController {
                                  BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update RuleName and return RuleName list
         model.addAttribute("ruleName", ruleNameService.getRuleNameById(id));
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "/ruleName/update/{id}";
-        }
-        else{
+        } else {
             ruleNameService.updateRuleName(ruleNameService.getRuleNameById(id), ruleName);
         }
         return "redirect:/ruleName/list";

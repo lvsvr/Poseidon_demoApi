@@ -16,16 +16,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private AppUserService appUserService;
-    public SpringSecurityConfig(AppUserService appUserService){
+
+    public SpringSecurityConfig(AppUserService appUserService) {
         this.appUserService = appUserService;
     }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
-//        auth.inMemoryAuthentication()
-//                .withUser("user").password(passwordEncoder().encode("123")).roles("USER")
-//                .and()
-//                .withUser("admin").password(passwordEncoder().encode("123")).roles("ADMIN");
+
     }
 
     @Bean
@@ -47,7 +46,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/css/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/user/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/user/**").hasRole("ADMIN")
                 .antMatchers("/").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
@@ -56,7 +55,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .oauth2Login()
                 .defaultSuccessUrl("/home", true)
-                ;
+        ;
     }
 
 }

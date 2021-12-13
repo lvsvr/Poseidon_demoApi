@@ -29,8 +29,7 @@ public class RatingController {
 
 
     @RequestMapping("/rating/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: find all Rating, add to model
         ArrayList<Rating> ratings = ratingService.getAllRatings();
         model.addAttribute("ratings", ratings);
@@ -46,10 +45,9 @@ public class RatingController {
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Rating list
         model.addAttribute("rating", rating);
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "rating/add";
-        }
-        else{
+        } else {
             ratingService.addRating(rating);
         }
         return "rating/add";
@@ -67,10 +65,9 @@ public class RatingController {
                                BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
         model.addAttribute("rating", ratingService.getRatingById(id));
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "/rating/update/{id}";
-        }
-        else{
+        } else {
             ratingService.updateRating(ratingService.getRatingById(id), rating);
         }
         return "redirect:/rating/list";

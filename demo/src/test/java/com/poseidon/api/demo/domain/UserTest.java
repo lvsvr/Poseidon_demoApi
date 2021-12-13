@@ -17,7 +17,7 @@ class UserTest {
     private UserRepository userRepo;
 
     @Test
-    void shouldGetUser(){
+    void shouldGetUser() {
         //        GIVEN
         user0.setUsername("u0");
         user0.setPassword("1Test@dm0");
@@ -36,5 +36,5 @@ class UserTest {
         Assert.assertNotNull(user0.toString());
     }
 
-    }
+}
 

@@ -17,7 +17,7 @@ class CurvePointTest {
     private CurvePointRepository curveRepo;
 
     @Test
-    void shouldGetCurvePoint(){
+    void shouldGetCurvePoint() {
 //        GIVEN
         curve0.setCurveId(0);
 //        WHEN
