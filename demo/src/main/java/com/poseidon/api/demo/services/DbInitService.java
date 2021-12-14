@@ -22,7 +22,9 @@ public class DbInitService implements CommandLineRunner {
     public void run(String... args) throws Exception {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = new User("admin", encoder.encode("1Test@dm0"), "admin", "ADMIN");
+        User u0 = new User("u0", encoder.encode("1Test@dm0"), "u0", "USER");
         this.userRepository.save(user);
+        this.userRepository.save(u0);
     }
 
 }
