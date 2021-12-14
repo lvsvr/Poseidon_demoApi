@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 
 @Controller
@@ -43,14 +44,19 @@ public class CurveController {
     }
 
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
+    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: check data valid and save to db, after saving return Curve list
         model.addAttribute("curvePoint", curvePoint);
         if (result.hasErrors()) {
             return "curvePoint/add";
         } else {
             curveService.addCurvePoint(curvePoint);
-            logger.info(appUser.getUser().getUsername() + " has added a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
+            if (appUser == null) {
+                logger.info(oaUser.toString());
+                logger.info("has added a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
+            } else {
+                logger.info(appUser.getUser().getUsername() + " has added a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
+            }
         }
         return "curvePoint/add";
     }
@@ -64,26 +70,37 @@ public class CurveController {
 
     @PostMapping("/curvePoint/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint updatedCurvePoint,
-                            BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
+                            BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: check required fields, if valid call service to update Curve and return Curve list
         model.addAttribute("curvePoint", curveService.getCurvePointById(id));
         if (result.hasErrors()) {
             return "/curvePoint/update/{id}";
         } else {
             CurvePoint curvePoint = curveService.getCurvePointById(id);
-            logger.info(appUser.getUser().getUsername() + " has selected a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
+            logger.info("Selected a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
             curveService.updateCurvePoint(curvePoint, updatedCurvePoint);
-            logger.info(appUser.getUser().getUsername() + " has updated a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
+            if (appUser == null) {
+                logger.info(oaUser.toString());
+                logger.info("has updated a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
+            } else {
+                logger.info(appUser.getUser().getUsername() + " has updated a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
+            }
         }
         return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser) {
+    public String deleteBid(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: Find Curve by Id and delete the Curve, return to Curve list
         CurvePoint curvePoint = curveService.getCurvePointById(id);
         curveService.deleteCurvePoint(curvePoint);
-        logger.info(appUser.getUser().getUsername() + " has deleted a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
-        return "redirect:/curvePoint/list";
+        if (appUser == null) {
+            logger.info(oaUser.toString());
+            logger.info("has deleted a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
+        }
+        else {
+            logger.info(appUser.getUser().getUsername() + " has deleted a Curve Point - Id: " + curvePoint.getId() + " - CurvePointId: " + curvePoint.getCurveId() + " - Term: " + curvePoint.getTerm() + " - Value: " + curvePoint.getValue());
+        }
+            return "redirect:/curvePoint/list";
     }
 }

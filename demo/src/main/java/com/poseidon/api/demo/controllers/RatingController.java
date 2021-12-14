@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 
 @Controller
@@ -44,14 +45,19 @@ public class RatingController {
     }
 
     @PostMapping("/rating/validate")
-    public String validate(@Valid Rating rating, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
+    public String validate(@Valid Rating rating, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: check data valid and save to db, after saving return Rating list
         model.addAttribute("rating", rating);
         if (result.hasErrors()) {
             return "rating/add";
         } else {
             ratingService.addRating(rating);
-            logger.info(appUser.getUser().getUsername() + " has added a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
+            if (appUser == null) {
+                logger.info(oaUser.toString());
+                logger.info("has added a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
+            } else {
+                logger.info(appUser.getUser().getUsername() + " has added a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
+            }
         }
         return "rating/add";
     }
@@ -65,26 +71,37 @@ public class RatingController {
 
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating upDatedRating,
-                               BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
+                               BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
         model.addAttribute("rating", ratingService.getRatingById(id));
         if (result.hasErrors()) {
             return "/rating/update/{id}";
         } else {
             Rating rating = ratingService.getRatingById(id);
-            logger.info(appUser.getUser().getUsername() + " has selected a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
+            logger.info("Selected Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
             ratingService.updateRating(ratingService.getRatingById(id), upDatedRating);
-            logger.info(appUser.getUser().getUsername() + " has updated a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
+            if (appUser == null) {
+                logger.info(oaUser.toString());
+                logger.info("has updated a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
+            } else {
+                logger.info(appUser.getUser().getUsername() + " has updated a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
+            }
         }
         return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/delete/{id}")
-    public String deleteRating(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser) {
+    public String deleteRating(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: Find Rating by Id and delete the Rating, return to Rating list
         Rating rating = ratingService.getRatingById(id);
         ratingService.deleteRating(rating);
-        logger.info(appUser.getUser().getUsername() + " has deleted a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
+        if (appUser == null) {
+            logger.info(oaUser.toString());
+            logger.info("has deleted a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
+        } else {
+            logger.info(appUser.getUser().getUsername() + " has deleted a Rating - Id: " + rating.getId() + " - MoodysRating: " + rating.getMoodysRating() + " - SandRatting: " + rating.getSandPRating() + " - FitchRating: " + rating.getFitchRating() + " - Order: " + rating.getOrderNumber());
+        }
         return "redirect:/rating/list";
     }
+
 }

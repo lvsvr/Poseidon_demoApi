@@ -54,7 +54,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/home", true)
                 .and()
                 .oauth2Login()
-                .defaultSuccessUrl("/home", true)
+                .authorizationEndpoint()
+
         ;
     }
 

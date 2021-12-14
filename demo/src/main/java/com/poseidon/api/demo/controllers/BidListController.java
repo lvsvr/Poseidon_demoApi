@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 
 @Controller
@@ -42,7 +43,7 @@ public class BidListController {
     }
 
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bid, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
+    public String validate(@Valid BidList bid, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: check data valid and save to db, after saving return bid list
         model.addAttribute("bidList", bid);
         logger.info(bid.toString());
@@ -50,7 +51,13 @@ public class BidListController {
             return "bidList/add";
         } else {
             bidListService.addBidList(bid);
-            logger.info(appUser.getUser().getUsername() + " has added a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+            if (appUser == null){
+                logger.info(oaUser.toString());
+                logger.info("has added a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+            }
+            else {
+                logger.info(appUser.getUser().getUsername() + " has added a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+            }
         }
         return "bidList/add";
     }
@@ -64,26 +71,38 @@ public class BidListController {
 
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList updatedBid,
-                            BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
+                            BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: check required fields, if valid call service to update Bid and return list Bid
         model.addAttribute("bidList", bidListService.getBidListById(id));
         if (result.hasErrors()) {
             return "bidList/update/{id}";
         } else {
             BidList bid = bidListService.getBidListById(id);
-            logger.info(appUser.getUser().getUsername() + " has selected a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+            logger.info("Selected Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
             bidListService.updateBidList(bidListService.getBidListById(id), updatedBid);
-            logger.info(appUser.getUser().getUsername() + " has updated a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+            if (appUser == null) {
+                logger.info(oaUser.toString());
+                logger.info("has updated a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+            }
+            else {
+                logger.info(appUser.getUser().getUsername() + " has updated a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+            }
         }
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser) {
+    public String deleteBid(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
         BidList bid = bidListService.getBidListById(id);
         bidListService.deleteBidList(bid);
-        logger.info(appUser.getUser().getUsername() + " has deleted a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+        if (appUser == null) {
+            logger.info(oaUser.toString());
+            logger.info("has deleted a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+        }
+        else {
+            logger.info(appUser.getUser().getUsername() + " has deleted a Bid List - Id: " + bid.getBidListId() + " - Account: " + bid.getAccount() + " - Type: " + bid.getType() + " - Bid Quantity: " + bid.getBidQuantity());
+        }
         return "redirect:/bidList/list";
     }
 

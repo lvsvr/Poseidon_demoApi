@@ -6,6 +6,7 @@ import com.poseidon.api.demo.config.ValidPassword;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+
 @Entity
 @Table(name = "users")
 public class User {

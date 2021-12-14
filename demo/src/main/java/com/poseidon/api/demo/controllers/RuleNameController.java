@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 
 @Controller
@@ -42,14 +43,19 @@ public class RuleNameController {
     }
 
     @PostMapping("/ruleName/validate")
-    public String validate(@Valid RuleName ruleName, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
+    public String validate(@Valid RuleName ruleName, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: check data valid and save to db, after saving return RuleName list
         model.addAttribute("ruleName", ruleName);
         if (result.hasErrors()) {
             return "ruleName/add";
         } else {
             ruleNameService.addRuleName(ruleName);
-            logger.info(appUser.getUser().getUsername() + " has added a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
+            if (appUser == null) {
+                logger.info(oaUser.toString());
+                logger.info("has added a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
+            } else {
+                logger.info(appUser.getUser().getUsername() + " has added a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
+            }
         }
         return "ruleName/add";
     }
@@ -63,26 +69,36 @@ public class RuleNameController {
 
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName updatedRuleName,
-                                 BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser) {
+                                 BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: check required fields, if valid call service to update RuleName and return RuleName list
         model.addAttribute("ruleName", ruleNameService.getRuleNameById(id));
         if (result.hasErrors()) {
             return "/ruleName/update/{id}";
         } else {
             RuleName ruleName = ruleNameService.getRuleNameById(id);
-            logger.info(appUser.getUser().getUsername() + " has selected a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
+            logger.info("Selected Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
             ruleNameService.updateRuleName(ruleName, updatedRuleName);
-            logger.info(appUser.getUser().getUsername() + " has updated a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
+            if (appUser == null) {
+                logger.info(oaUser.toString());
+                logger.info("has updated a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
+            } else {
+                logger.info(appUser.getUser().getUsername() + " has updated a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
+            }
         }
         return "redirect:/ruleName/list";
     }
 
     @GetMapping("/ruleName/delete/{id}")
-    public String deleteRuleName(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser) {
+    public String deleteRuleName(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
         // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
         RuleName ruleName = ruleNameService.getRuleNameById(id);
         ruleNameService.deleteRuleName(ruleName);
-        logger.info(appUser.getUser().getUsername() + " has deleted a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
+        if (appUser == null) {
+            logger.info(oaUser.toString());
+            logger.info("has deleted a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
+        } else {
+            logger.info(appUser.getUser().getUsername() + " has deleted a Rule Name - Id: " + ruleName.getId() + " - Name: " + ruleName.getName() + " - Description: " + ruleName.getDescription() + " - json: " + ruleName.getJson() + " - template: " + ruleName.getTemplate() + " - SqlStr: " + ruleName.getSqlStr() + " - SqlPart: " + ruleName.getSqlPart());
+        }
         return "redirect:/ruleName/list";
     }
 
