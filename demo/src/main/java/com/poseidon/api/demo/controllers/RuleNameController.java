@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 @Controller
 public class RuleNameController {
-    // TODO: Inject RuleName service
+    // Inject RuleName service
     private RuleNameService ruleNameService;
     private static final Logger logger = LogManager.getLogger(DemoApplication.class);
 
@@ -31,7 +31,7 @@ public class RuleNameController {
 
     @RequestMapping("/ruleName/list")
     public String home(Model model) {
-        // TODO: find all RuleName, add to model
+        // find all RuleName, add to model
         ArrayList<RuleName> ruleNames = ruleNameService.getAllRuleNames();
         model.addAttribute("ruleNames", ruleNames);
         return "ruleName/list";
@@ -44,7 +44,7 @@ public class RuleNameController {
 
     @PostMapping("/ruleName/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: check data valid and save to db, after saving return RuleName list
+        // check data valid and save to db, after saving return RuleName list
         model.addAttribute("ruleName", ruleName);
         if (result.hasErrors()) {
             return "ruleName/add";
@@ -62,7 +62,7 @@ public class RuleNameController {
 
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
+        // get RuleName by Id and to model then show to the form
         model.addAttribute("ruleName", ruleNameService.getRuleNameById(id));
         return "ruleName/update";
     }
@@ -70,7 +70,7 @@ public class RuleNameController {
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName updatedRuleName,
                                  BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
+        //check required fields, if valid call service to update RuleName and return RuleName list
         model.addAttribute("ruleName", ruleNameService.getRuleNameById(id));
         if (result.hasErrors()) {
             return "/ruleName/update/{id}";
@@ -90,7 +90,7 @@ public class RuleNameController {
 
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
+        // Find RuleName by Id and delete the RuleName, return to Rule list
         RuleName ruleName = ruleNameService.getRuleNameById(id);
         ruleNameService.deleteRuleName(ruleName);
         if (appUser == null) {

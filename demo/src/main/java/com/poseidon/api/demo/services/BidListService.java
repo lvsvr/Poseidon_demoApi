@@ -6,23 +6,37 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+/**
+ * Service JPA
+ * @author w-boar
+ * @version 1.0
+ */
+
 @Service
 public class BidListService {
 
     private final BidListRepository bidListRepository;
-
+    /**
+     * @param bidListRepository
+     */
     public BidListService(BidListRepository bidListRepository) {
         this.bidListRepository = bidListRepository;
     }
-
+    /**
+     * @return ArrayList<BidList>
+     */
     public ArrayList<BidList> getAllBidList() {
         return (ArrayList<BidList>) bidListRepository.findAll();
     }
-
+    /**
+     * @return BidList
+     */
     public BidList addBidList(BidList bidList) {
         return bidListRepository.save(bidList);
     }
-
+    /**
+     * @return BidList
+     */
     public BidList getBidListById(Integer id) {
         return bidListRepository.getById(id);
     }

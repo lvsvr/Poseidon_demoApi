@@ -8,6 +8,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Tool used to initiate db with users
+ * @author w-boar
+ * @version 1.0
+ */
+
 @Service
 public class DbInitService implements CommandLineRunner {
     private static final Logger logger = LogManager.getLogger(com.poseidon.api.demo.DemoApplication.class);

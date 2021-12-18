@@ -10,8 +10,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class AppUser implements UserDetails {
+/**
+ * Tool used with AppUserService and SpringSecurityConfig
+ * @author w-boar
+ * @version 1.0
+ */
 
+
+public class AppUser implements UserDetails {
+    /**
+     *  * @param User
+     */
     private User user;
 
     public AppUser(User user) {

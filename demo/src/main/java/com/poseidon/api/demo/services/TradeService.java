@@ -6,22 +6,36 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+/**
+ * Service JPA
+ * @author w-boar
+ * @version 1.0
+ */
+
 @Service
 public class TradeService {
     private final TradeRepository tradeRepository;
-
+    /**
+     * @param tradeRepository
+     */
     public TradeService(TradeRepository tradeRepository) {
         this.tradeRepository = tradeRepository;
     }
-
+    /**
+     * @return ArrayList<Trade>
+     */
     public ArrayList<Trade> getAllTrades(){
         return (ArrayList<Trade>) tradeRepository.findAll();
     }
-
+    /**
+     * @return Trade
+     */
     public Trade addTrade (Trade trade) {
         return tradeRepository.save(trade);
     }
-
+    /**
+     * @return Trade
+     */
     public Trade getTradeById(Integer id){
         return tradeRepository.getById(id);
     }

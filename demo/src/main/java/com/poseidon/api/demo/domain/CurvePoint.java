@@ -5,6 +5,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+/**
+ * Basic entity
+ *  * @author w-boar
+ *  * @version 1.0
+ */
+
 @Entity
 @Table(name = "curve_point")
 public class CurvePoint {

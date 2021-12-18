@@ -33,7 +33,7 @@ public class RatingController {
 
     @RequestMapping("/rating/list")
     public String home(Model model) {
-        // TODO: find all Rating, add to model
+        // find all Rating, add to model
         ArrayList<Rating> ratings = ratingService.getAllRatings();
         model.addAttribute("ratings", ratings);
         return "rating/list";
@@ -46,7 +46,7 @@ public class RatingController {
 
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: check data valid and save to db, after saving return Rating list
+        // check data valid and save to db, after saving return Rating list
         model.addAttribute("rating", rating);
         if (result.hasErrors()) {
             return "rating/add";
@@ -64,7 +64,7 @@ public class RatingController {
 
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form
+        // get Rating by Id and to model then show to the form
         model.addAttribute("rating", ratingService.getRatingById(id));
         return "rating/update";
     }
@@ -72,7 +72,7 @@ public class RatingController {
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating upDatedRating,
                                BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: check required fields, if valid call service to update Rating and return Rating list
+        // check required fields, if valid call service to update Rating and return Rating list
         model.addAttribute("rating", ratingService.getRatingById(id));
         if (result.hasErrors()) {
             return "/rating/update/{id}";
@@ -92,7 +92,7 @@ public class RatingController {
 
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
+        // Find Rating by Id and delete the Rating, return to Rating list
         Rating rating = ratingService.getRatingById(id);
         ratingService.deleteRating(rating);
         if (appUser == null) {

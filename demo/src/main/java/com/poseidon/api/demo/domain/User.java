@@ -6,6 +6,11 @@ import com.poseidon.api.demo.config.ValidPassword;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Basic entity
+ * @author w-boar
+ * @version 1.0
+ */
 
 @Entity
 @Table(name = "users")

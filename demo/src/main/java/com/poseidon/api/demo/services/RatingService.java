@@ -6,22 +6,36 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+/**
+ * Service JPA
+ * @author w-boar
+ * @version 1.0
+ */
+
 @Service
 public class RatingService {
     private final RatingRepository ratingRepository;
-
+    /**
+     * @param ratingRepository
+     */
     public RatingService(RatingRepository ratingRepository) {
         this.ratingRepository = ratingRepository;
     }
-
+    /**
+     * @return ArrayList<Rating>
+     */
     public ArrayList<Rating> getAllRatings(){
         return (ArrayList<Rating>) ratingRepository.findAll();
     }
-
+    /**
+     * @return Rating
+     */
     public Rating addRating(Rating rating){
         return ratingRepository.save(rating);
     }
-
+    /**
+     * @return Rating
+     */
     public Rating getRatingById(Integer id){
         return ratingRepository.getById(id);
     }

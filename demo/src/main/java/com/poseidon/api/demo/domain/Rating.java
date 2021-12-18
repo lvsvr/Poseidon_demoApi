@@ -3,6 +3,12 @@ package com.poseidon.api.demo.domain;
 
 import javax.persistence.*;
 
+/**
+ * Basic entity
+ * @author w-boar
+ * @version 1.0
+ */
+
 @Entity
 @Table(name = "rating")
 public class Rating {

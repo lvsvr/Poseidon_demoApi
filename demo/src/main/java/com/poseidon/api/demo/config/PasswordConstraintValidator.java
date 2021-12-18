@@ -8,6 +8,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Tool used to get strong passwords linked by @ValidPassword
+ *  @author w-boar
+ *  @version 1.0
+ */
+
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
     @Override
     public void initialize(ValidPassword arg0) {

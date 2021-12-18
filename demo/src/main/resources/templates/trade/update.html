@@ -16,7 +16,7 @@
         <form action="#" th:action="@{/trade/update/{id}(id=${trade.tradeId})}" th:object="${trade}" method="post"
               class="form-horizontal" style="width: 100%">
             <!--
-            TODO: Create a form to edit the values of Trade, there are 2 buttons: Update data and Cancel to the Trade List
+            form to edit the values of Trade, there are 2 buttons: Update data and Cancel to the Trade List
              -->
             <legend>Account</legend>
             <input type="text" class="form-control" placeholder="Account" th:field="*{account}" required

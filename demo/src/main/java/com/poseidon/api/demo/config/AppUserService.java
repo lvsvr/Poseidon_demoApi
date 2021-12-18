@@ -7,9 +7,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Tool used with AppUser and SpringSecurityConfig
+ *  @author w-boar
+ *  @version 1.0
+ */
 @Service
 public class AppUserService implements UserDetailsService {
-
+    /**
+     *  * @param UserRepository
+     */
     private UserRepository userRepository;
 
     public AppUserService(UserRepository userRepository) {

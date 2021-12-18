@@ -44,7 +44,7 @@ public class TradeController {
 
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: check data valid and save to db, after saving return Trade list
+        // check data valid and save to db, after saving return Trade list
         model.addAttribute("trade", trade);
         if (result.hasErrors()) {
             return "trade/add";
@@ -62,7 +62,7 @@ public class TradeController {
 
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
+        // get Trade by Id and to model then show to the form
         model.addAttribute("trade", tradeService.getTradeById(id));
         return "trade/update";
     }
@@ -70,7 +70,7 @@ public class TradeController {
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade updatedTrade,
                               BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
+        // check required fields, if valid call service to update Trade and return Trade list
         model.addAttribute("trade", tradeService.getTradeById(id));
         if (result.hasErrors()) {
             return "/trade/update/{id}";
@@ -90,7 +90,7 @@ public class TradeController {
 
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
+        // Find Trade by Id and delete the Trade, return to Trade list
         Trade trade = tradeService.getTradeById(id);
         tradeService.deleteTrade(trade);
         if (appUser == null) {

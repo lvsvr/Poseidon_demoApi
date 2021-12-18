@@ -4,6 +4,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
+/**
+ * Basic entity
+ * @author w-boar
+ * @version 1.0
+ */
+
 @Entity
 @Table(name = "bid_list")
 public class BidList {

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 @Controller
 public class BidListController {
-    // TODO: Inject Bid service
+    // Inject Bid service
     private BidListService bidListService;
     private static final Logger logger = LogManager.getLogger(DemoApplication.class);
 
@@ -31,7 +31,7 @@ public class BidListController {
 
     @RequestMapping("/bidList/list")
     public String home(Model model) {
-        // TODO: call service find all bids to show to the view
+        // call service find all bids to show to the view
         ArrayList<BidList> bids = bidListService.getAllBidList();
         model.addAttribute("bids", bids);
         return "bidList/list";
@@ -44,7 +44,7 @@ public class BidListController {
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: check data valid and save to db, after saving return bid list
+        // check data valid and save to db, after saving return bid list
         model.addAttribute("bidList", bid);
         logger.info(bid.toString());
         if (result.hasErrors()) {
@@ -64,7 +64,7 @@ public class BidListController {
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
+        // get Bid by Id and to model then show to the form
         model.addAttribute("bidList", bidListService.getBidListById(id));
         return "bidList/update";
     }
@@ -72,7 +72,7 @@ public class BidListController {
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList updatedBid,
                             BindingResult result, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
+        // check required fields, if valid call service to update Bid and return list Bid
         model.addAttribute("bidList", bidListService.getBidListById(id));
         if (result.hasErrors()) {
             return "bidList/update/{id}";
@@ -93,7 +93,7 @@ public class BidListController {
 
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal AppUser appUser, Principal oaUser) {
-        // TODO: Find Bid by Id and delete the bid, return to Bid list
+        // Find Bid by Id and delete the bid, return to Bid list
         BidList bid = bidListService.getBidListById(id);
         bidListService.deleteBidList(bid);
         if (appUser == null) {
